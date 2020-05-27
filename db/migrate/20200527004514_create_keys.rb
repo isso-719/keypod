@@ -6,6 +6,7 @@ class CreateKeys < ActiveRecord::Migration[5.2]
       t.string :path
       t.string :description
       t.string :data_type
+      t.timestamps null: false
     end
   end
 end

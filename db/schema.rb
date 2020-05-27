@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_004514) do
     t.string "path"
     t.string "description"
     t.string "data_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["workspace_id"], name: "index_keys_on_workspace_id"
   end
 
@@ -25,12 +27,16 @@ ActiveRecord::Schema.define(version: 2020_05_27_004514) do
     t.string "name"
     t.string "mail"
     t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "workspaces", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
     t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_workspaces_on_user_id"
   end
 
