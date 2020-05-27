@@ -7,6 +7,13 @@
 </head>
 <body>
 
+	<% if session[:signin_error] %>
+	<div class="error">
+		<h3>Error!</h3>
+		<p><%= session[:signin_error] %></p>
+	</div>
+	<% session[:signin_error] = nil %>
+	<% end %>
 	<form action="/login" method="post">
 		<input type="text" name="mail" placeholder="Mail Address">
 		<input type="password" name="password" placeholder="Password">

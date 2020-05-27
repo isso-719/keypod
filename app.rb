@@ -7,12 +7,10 @@ enable :sessions
 
 get '/' do
   if session[:user].nil?
-    "You are not in session ;w;"
-    # erb :index
+    erb :index
 
   else
-    "You are in session!\nWelcome #{User.find(session[:user]).name}!"
-    # erb :index_session
+    erb :index_session
 
   end
 end
@@ -25,13 +23,11 @@ post '/login' do
   user = User.find_by(mail: params[:mail])
   if user && user.authenticate(params[:password])
     session[:user] = user.id
+    redirect '/'
   else
-    session[:signin_error] = 'パスワードが間違っています'
-    redirect '/login'
+    session[:signin_error] = 'メールアドレス、またはパスワードが間違っています'
+    erb :login
   end
-  redirect '/'
-
-  erb :login
 end
 
 get '/signup' do
@@ -39,18 +35,23 @@ get '/signup' do
 end
 
 post '/signup' do
-  @user = User.create(
-    name: params[:name],
-    mail: params[:mail],
-    password: params[:password],
-    password_confirmation: params[:password_confirmation])
-  if @user.persisted?
-    session[:user] = @user.id
-    redirect '/'
+  if params[:name] == "" || params[:mail] == "" || params[:password] == "" || params[:password_confirmation] == ""
+    session[:signup_error] = '入力されていない項目があります'
+    erb :signup
   else
-    redirect '/signup'
+    @user = User.create(
+      name: params[:name],
+      mail: params[:mail],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation])
+    if @user.persisted?
+      session[:user] = @user.id
+      redirect '/'
+    else
+      session[:signup_error] = 'パスワードが一致しません'
+      erb :signup
+    end
   end
-  erb :signup
 end
 
 get '/logout' do
