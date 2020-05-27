@@ -7,11 +7,12 @@ gem 'sinatra-contrib'
 gem 'activerecord' ,  '5.2.3'
 gem 'sinatra-activerecord'
 gem 'bcrypt'
+gem 'pry'
 
 group :development do
   gem 'sqlite3', '~>1.4.1'
   gem 'debase'
-  gem 'pry'
+  # gem 'pry'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'ruby-debug-ide'

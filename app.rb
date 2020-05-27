@@ -7,10 +7,12 @@ enable :sessions
 
 get '/' do
   if session[:user].nil?
-    erb :index
+    "You are not in session ;w;"
+    # erb :index
 
   else
-    erb :index_session
+    "You are in session!\nWelcome #{User.find(session[:user]).name}!"
+    # erb :index_session
 
   end
 end
@@ -21,12 +23,13 @@ end
 
 post '/login' do
   user = User.find_by(mail: params[:mail])
-  if user && user.authenticate(password: params[:password])
+  if user && user.authenticate(params[:password])
     session[:user] = user.id
-    redirect '/'
   else
+    session[:signin_error] = 'パスワードが間違っています'
     redirect '/login'
   end
+  redirect '/'
 
   erb :login
 end
@@ -52,4 +55,5 @@ end
 
 get '/logout' do
   session[:user] = nil
+  redirect '/'
 end
