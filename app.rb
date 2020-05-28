@@ -74,3 +74,9 @@ post '/workspace/create' do
   )
   redirect '/'
 end
+
+post '/workspace/delete/:id' do
+  workspace = Workspace.find(params[:id])
+  workspace.destroy
+  redirect '/'
+end

@@ -6,13 +6,23 @@
 	<title>ダッシュボード - Keypod</title>
 </head>
 <body>
+	<h2>Welcome <%= session_user.name %>!</h2>
 	<a href="/logout">ログアウト</a>
 	<a href="/workspace/create">ワークスペースの作成</a>
 	<% @workspaces.each do |workspace| %>
 	<div>
-		<div><h1><%= workspace.name %></h1></div>
-		<div><small><%= workspace.description %></small></div>
-		<div><a href="aaa">編集</a> <a href="aaa">削除</a></div>
+		<div>
+			<h1><%= workspace.name %></h1>
+		</div>
+		<div>
+			<small><%= workspace.description %></small>
+		</div>
+		<div>
+			<a href="aaa">開く</a>
+			<form action="/workspace/delete/<%= workspace.id %>" method="post">
+				<input type="submit" value="削除">
+			</form>
+		</div>
 	</div>
 	<% end %>
 </body>
