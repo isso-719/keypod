@@ -68,7 +68,7 @@ end
 post '/workspace/create' do
   random = SecureRandom.base64(16)
   session_user.workspaces.create(
-    name: params[:title],
+    name: params[:name],
     description: params[:description],
     url: random
   )
