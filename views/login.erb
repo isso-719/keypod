@@ -3,21 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>ログイン - Keypod</title>
 </head>
 <body>
 
 	<% if session[:signin_error] %>
-	<div class="error">
-		<h3>Error!</h3>
-		<p><%= session[:signin_error] %></p>
-	</div>
-	<% session[:signin_error] = nil %>
+		<div class="error">
+			<h3>エラー項目があります</h3>
+			<p><%= session[:signin_error] %></p>
+		</div>
+		<% session[:signin_error] = nil %>
 	<% end %>
 	<form action="/login" method="post">
-		<input type="text" name="mail" placeholder="Mail Address">
-		<input type="password" name="password" placeholder="Password">
-		<input type="submit" value="Signin">
+		<input type="text" name="mail" placeholder="メールアドレス">
+		<input type="password" name="password" placeholder="パスワード">
+		<input type="submit" value="ログイン">
 	</form>
 
 </body>

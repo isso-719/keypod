@@ -4,6 +4,7 @@ class CreateWorkspaces < ActiveRecord::Migration[5.2]
       t.references :user
       t.string :name
       t.string :url
+      t.string :description
       t.timestamps null: false
     end
   end

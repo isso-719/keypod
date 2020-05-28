@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_004514) do
     t.integer "user_id"
     t.string "name"
     t.string "url"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_workspaces_on_user_id"

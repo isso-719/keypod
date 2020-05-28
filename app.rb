@@ -48,7 +48,6 @@ post '/signup' do
       session[:user] = @user.id
       redirect '/'
     else
-      session[:signup_error] = 'パスワードが一致しません'
       erb :signup
     end
   end
@@ -57,4 +56,8 @@ end
 get '/logout' do
   session[:user] = nil
   redirect '/'
+end
+
+get '/workspace/:url' do
+
 end
