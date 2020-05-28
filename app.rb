@@ -5,13 +5,16 @@ require './models.rb'
 
 enable :sessions
 
+def session_user
+  User.find(session[:user])
+end
+
 get '/' do
   if session[:user].nil?
     erb :index
-
   else
+    @workspaces = session_user.workspaces.order(created_at: :desc)
     erb :index_session
-
   end
 end
 
@@ -58,6 +61,16 @@ get '/logout' do
   redirect '/'
 end
 
-get '/workspace/:url' do
+get '/workspace/create' do
+  erb :workspace_create
+end
 
+post '/workspace/create' do
+  random = SecureRandom.base64(16)
+  session_user.workspaces.create(
+    name: params[:title],
+    description: params[:description],
+    url: random
+  )
+  redirect '/'
 end
