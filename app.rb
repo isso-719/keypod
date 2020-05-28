@@ -13,7 +13,7 @@ get '/' do
   if session[:user].nil?
     erb :index
   else
-    @workspaces = session_user.workspaces.order(created_at: :desc)
+    @workspaces = session_user.workspaces.order(updated_at: :desc)
     erb :index_session
   end
 end
