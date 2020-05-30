@@ -72,11 +72,67 @@ post '/workspace/create' do
     description: params[:description],
     url: random
   )
+  workspace = Workspace.last
+  strs = ('a'..'z').to_a
+  strs.push(*'0'..'9')
+  for str in strs do
+    workspace.keys.create(
+      key: str
+    )
+  end
   redirect '/'
 end
 
 post '/workspace/delete/:id' do
   workspace = Workspace.find(params[:id])
+  keys = Key.where(workspace_id: workspace.id)
   workspace.destroy
+  for key in keys do
+    key.destroy
+  end
   redirect '/'
+end
+
+get '/workspace/:url' do
+  @workspace = Workspace.find_by(url: params[:url])
+end
+
+get '/workspace/edit/:url' do
+  @workspace = Workspace.find_by(url: params[:url])
+
+  erb :workspace_edit
+end
+
+before '/workspace/edit/:url' do
+  Dotenv.load
+  Cloudinary.config do |config|
+    config.cloud_name = ENV["CLOUD_NAME"]
+    config.api_key = ENV["CLOUDINARY_API_KEY"]
+    config.api_secret = ENV["CLOUDINARY_API_SECRET"]
+  end
+end
+
+post '/workspace/edit/:url/:id' do
+  workspace = Workspace.find_by(url: params[:url])
+  key = workspace.keys.find(params[:id])
+
+  msc_url = key.path
+  data_type = key.data_type
+  if params[:file]
+    msc_url = ""
+    data_type = "cloudinary"
+    msc = params[:file]
+    tempfile = msc[:tempfile]
+    upload = Cloudinary::Uploader.upload(tempfile.path,:resource_type => :video)
+    msc_url = upload["url"]
+  end
+
+  key.update(
+    path: msc_url,
+    data_type: data_type,
+    description: params[:description]
+  )
+
+  redirect "/workspace/edit/#{workspace.url}"
+
 end

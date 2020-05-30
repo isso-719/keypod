@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+	<% @workspace.keys.each do |key| %>
+		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post" enctype="multipart/form-data">
+			<p><%= key.key %></p>
+			<input type="file" name="file">
+			<input type="text" name="description" value="<%= key.description %>">
+			<input type="submit" value="アップロード">
+		</form>
+	<% end %>
+
+</body>
+</html>

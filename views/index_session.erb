@@ -18,7 +18,8 @@
 			<small><%= workspace.description %></small>
 		</div>
 		<div>
-			<a href="aaa">開く</a>
+			<a href="/workspace/<%= workspace.url %>">開く</a>
+			<a href="/workspace/edit/<%= workspace.url %>">編集</a>
 			<form action="/workspace/delete/<%= workspace.id %>" method="post">
 				<input type="submit" value="削除">
 			</form>

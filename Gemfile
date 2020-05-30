@@ -7,6 +7,8 @@ gem 'sinatra-contrib'
 gem 'activerecord' ,  '5.2.3'
 gem 'sinatra-activerecord'
 gem 'bcrypt'
+gem 'cloudinary'
+gem 'dotenv'
 gem 'pry'
 
 group :development do
