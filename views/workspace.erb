@@ -35,13 +35,23 @@
 					<% unless @workspace.keys.find_by(key: str).path == nil %>
 						if (key === '<%= str %>') {
 							if (msc_<%= str %>.isPlaying()) {
-								msc_<%= str %>.stop();
+
+								// モードによってplayかstopか選べるような機能を今後実装予定
+								msc_<%= str %>.play();
+
 							} else {
 								msc_<%= str %>.play();
 							}
 						}
 					<% end %>
 				<% end %>
+				if (key === ' ') {
+					<% @strs.each do |str| %>
+						<% unless @workspace.keys.find_by(key: str).path == nil %>
+							msc_<%= str %>.stop();
+						<% end %>
+					<% end %>
+				}
 			}
 		</script>
 
