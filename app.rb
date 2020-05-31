@@ -75,7 +75,7 @@ post '/workspace/create' do
   workspace = Workspace.last
   strs = ('a'..'z').to_a
   strs.push(*'0'..'9')
-  for str in strs do
+  strs.each do |str|
     workspace.keys.create(
       key: str
     )
@@ -87,7 +87,7 @@ post '/workspace/delete/:id' do
   workspace = Workspace.find(params[:id])
   keys = Key.where(workspace_id: workspace.id)
   workspace.destroy
-  for key in keys do
+  keys.each do |key|
     key.destroy
   end
   redirect '/'
@@ -95,6 +95,11 @@ end
 
 get '/workspace/:url' do
   @workspace = Workspace.find_by(url: params[:url])
+
+  @strs = ('a'..'z').to_a
+  @strs.push(*'0'..'9')
+
+  erb :workspace
 end
 
 get '/workspace/edit/:url' do

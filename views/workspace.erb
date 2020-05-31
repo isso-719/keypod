@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.min.js"></script>
+  </head>
+  <body>
+
+		<div id="p5_loading" style="position: absolute;">音楽ファイルを読み込み中...</div>
+
+    <script>
+			<% @strs.each do |str| %>
+				<% unless @workspace.keys.find_by(key: str).path == nil %>
+					var msc_<%= str %>;
+				<% end %>
+			<% end %>
+
+			function preload() {
+				<% @strs.each do |str| %>
+					<% unless @workspace.keys.find_by(key: str).path == nil %>
+						msc_<%= str %> = loadSound('<%= @workspace.keys.find_by(key: str).path %>');
+					<% end %>
+				<% end %>
+			}
+
+			function setup() {
+				createCanvas(0, 0);
+			}
+
+			function keyTyped() {
+				<% @strs.each do |str| %>
+					<% unless @workspace.keys.find_by(key: str).path == nil %>
+						if (key === '<%= str %>') {
+							if (msc_<%= str %>.isPlaying()) {
+								msc_<%= str %>.stop();
+							} else {
+								msc_<%= str %>.play();
+							}
+						}
+					<% end %>
+				<% end %>
+			}
+		</script>
+
+  </body>
+</html>
