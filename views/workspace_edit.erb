@@ -11,8 +11,14 @@
 		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post" enctype="multipart/form-data">
 			<p><%= key.key %></p>
 			<input type="file" name="file">
-			<input type="text" name="description" value="<%= key.description %>">
+			<input type="text" name="description" value="<%= key.description %>" placeholder="説明">
 			<input type="submit" value="アップロード">
+		</form>
+		<br>
+		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post">
+			<input type="text" name="youtube" placeholder="YouTube Video ID">
+			<input type="text" name="description" value="<%= key.description %>" placeholder="説明">
+			<input type="submit" value="YouTubeでアップロード">
 		</form>
 	<% end %>
 

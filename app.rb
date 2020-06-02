@@ -130,6 +130,11 @@ post '/workspace/edit/:url/:id' do
     tempfile = msc[:tempfile]
     upload = Cloudinary::Uploader.upload(tempfile.path,:resource_type => :video)
     msc_url = upload["url"]
+
+  else
+    msc_url = params[:youtube][-11 .. -1]
+    data_type = "youtube"
+
   end
 
   key.update(

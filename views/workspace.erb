@@ -6,6 +6,7 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -184,7 +185,6 @@
 				<div class="key--bottom-right key--word key--w3">
 				</div>
 				<div class="key--letter key--right key--space" data-key="32" data-char=" ">
-					<br>
 					<span>Stop</span>
 				</div>
 				<div class="key--bottom-left key--word key--w3">
@@ -199,6 +199,75 @@
 				</div>
 			</div>
 		</div>
+
+		<% @strs.each do |str| %>
+			<% unless @workspace.keys.find_by(key: str).path == nil %>
+				<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
+					<div id="player_<%= str %>" style="visibility:hidden;"></div>
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<script>
+			var ytData = [
+				<% @strs.each do |str| %>
+					<% unless @workspace.keys.find_by(key: str).path == nil %>
+						<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
+							{
+									id: '<%= @workspace.keys.find_by(key: str).path %>',
+									area: 'player_<%= str %>'
+							},
+						<% end %>
+					<% end %>
+				<% end %>
+			];
+
+
+			var ytPlayer = [];
+			var ytPlaying, ytStop, ytPlay;
+
+			// YouTube Player APIを読み込む
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			// API読み込み後に、各エリアにプレーヤーを埋め込む
+			function onYouTubeIframeAPIReady() {
+				<% @strs.each do |str| %>
+					<% unless @workspace.keys.find_by(key: str).path == nil %>
+						<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
+									var ytWidth = 0;
+									var ytHeight = 0;
+									ytPlayer_<%= str %> = new YT.Player('player_<%= str %>', {
+										height: ytHeight,
+										width: ytWidth,
+										videoId: '<%= @workspace.keys.find_by(key: str).path %>',
+										rel: 0,
+										controls: 0,
+										autoplay: 0,
+										origin: location.protocol + '//' + location.hostname + "/"
+									});
+						<% end %>
+					<% end %>
+				<% end %>
+			}
+
+			<% @strs.each do |str| %>
+				<% unless @workspace.keys.find_by(key: str).path == nil %>
+					<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
+
+						function stopVideo_<%= str %>() {
+							ytPlayer_<%= str %>.stopVideo();
+						}
+						function playVideo_<%= str %>() {
+							ytPlayer_<%= str %>.playVideo();
+						}
+
+					<% end %>
+				<% end %>
+			<% end %>
+		</script>
 
 		<style>
 			small {
@@ -380,7 +449,6 @@
 			function size () {
 					var size = keyboard.parentNode.clientWidth / 60;
 					keyboard.style.fontSize = size + 'px';
-					console.log(size);
 			}
 
 			var keyboard = document.querySelector('.keyboard');
@@ -393,14 +461,18 @@
     <script>
 			<% @strs.each do |str| %>
 				<% unless @workspace.keys.find_by(key: str).path == nil %>
-					var msc_<%= str %>;
+					<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+						var msc_<%= str %>;
+					<% end %>
 				<% end %>
 			<% end %>
 
 			function preload() {
 				<% @strs.each do |str| %>
 					<% unless @workspace.keys.find_by(key: str).path == nil %>
-						msc_<%= str %> = loadSound('<%= @workspace.keys.find_by(key: str).path %>');
+						<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+							msc_<%= str %> = loadSound('<%= @workspace.keys.find_by(key: str).path %>');
+						<% end %>
 					<% end %>
 				<% end %>
 			}
@@ -412,20 +484,35 @@
 			function draw() {
 				<% @strs.each do |str| %>
 					<% unless @workspace.keys.find_by(key: str).path == nil %>
-						var elem_<%= str %> = document.getElementById("<%= str %>")
-						if (msc_<%= str %>.isPlaying()) {
+					var elem_<%= str %> = document.getElementById("<%= str %>")
+						<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+							if (msc_<%= str %>.isPlaying()) {
 
-							// 再生中はボタンを変化させる
-							elem_<%= str %>.style.background = '#fff';
-							elem_<%= str %>.style.color = '#333';
+								// 再生中はボタンを変化させる
+								elem_<%= str %>.style.background = '#fff';
+								elem_<%= str %>.style.color = '#333';
 
-						} else {
+							} else {
+
+									elem_<%= str %>.style.background = '#333';
+									elem_<%= str %>.style.color = '#fff';
+									elem_<%= str %>.style.transition = '0.25s';
+
+							}
+						<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
+							if (ytPlayer_<%= str %>.getPlayerState() == '1') {
+
+								elem_<%= str %>.style.background = '#fff';
+								elem_<%= str %>.style.color = '#333';
+
+							} else {
 
 								elem_<%= str %>.style.background = '#333';
 								elem_<%= str %>.style.color = '#fff';
 								elem_<%= str %>.style.transition = '0.25s';
 
-						}
+							}
+						<% end %>
 					<% end %>
 				<% end %>
 			}
@@ -433,22 +520,32 @@
 			function keyTyped() {
 				<% @strs.each do |str| %>
 					<% unless @workspace.keys.find_by(key: str).path == nil %>
-						if (key === '<%= str %>') {
-							if (msc_<%= str %>.isPlaying()) {
+						<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+							if (key === '<%= str %>') {
+								if (msc_<%= str %>.isPlaying()) {
 
-								// モードによってplayかstopか選べるような機能を今後実装予定
-								msc_<%= str %>.play();
+									// 再生モードによってplayかstopか選べるような機能を今後実装
+									msc_<%= str %>.play();
 
-							} else {
-								msc_<%= str %>.play();
+								} else {
+									msc_<%= str %>.play();
+								}
 							}
-						}
+						<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
+							if (key === '<%= str %>') {
+								playVideo_<%= str %>();
+							}
+						<% end %>
 					<% end %>
 				<% end %>
 				if (key === ' ') {
 					<% @strs.each do |str| %>
 						<% unless @workspace.keys.find_by(key: str).path == nil %>
-							msc_<%= str %>.stop();
+							<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+								msc_<%= str %>.stop();
+							<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
+								stopVideo_<%= str %>();
+							<% end %>
 						<% end %>
 					<% end %>
 				}
