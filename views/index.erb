@@ -4,10 +4,65 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ホーム - Keypod</title>
+	<link rel="stylesheet" href="/assets/css/index.css">
+	<script src="https://kit.fontawesome.com/e04b7045d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1>Keypod</h1>
-	<a href="/login">ログイン</a>
-	<a href="/signup">サインアップ</a>
+	<header>
+		<div>
+			<a href="/">
+				<img src="/assets/images/logo_accent.svg" alt="logo">
+				<h1>Keypod</h1>
+			</a>
+		</div>
+		<div>
+			<a href="/signup"><i class="fas fa-user-plus"></i></a>
+			<a href="/login"><i class="fas fa-sign-in-alt"></i></a>
+		</div>
+	</header>
+	<main>
+		<h1>キーを押して魔法を奏でよう</h1>
+		<div class="visual">
+			<div>
+				<img class="harmony" src="/assets/images/harmony.svg" alt="harmony">
+				<img class="harmony" src="/assets/images/harmony.svg" alt="harmony">
+			</div>
+			<div class="keyboard">
+				<img src="/assets/images/keyboard.svg" alt="keyboard">
+			</div>
+			<div>
+				<img class="harmony1" src="/assets/images/harmony.svg" alt="harmony">
+				<img class="harmony1" src="/assets/images/harmony.svg" alt="harmony">
+			</div>
+		</div>
+		<div class="description">
+			<h2>What's Keypad?</h2>
+			<p>
+				Keypadは一言で言うと、Web上でLaunchpadのような体験ができるアプリです。<br>
+				LaunchpadとはNovation社が開発した楽器で、8x8のキーがついています。<br>
+				自分の好きなタイミングでのクリップの再生、ドラムラックの演奏、メロディーの作成といった操作などを行うことができるため、DJや劇の効果音再生などに用いられています。<br>
+				しかしLaunchpadは値段が高く、またプロ用の機材やソフトウェアの導入が必要不可欠です。<br>
+				だから身近にあるキーボードのキーをLaunchpadのキーに見立てて、Web上でいつでもどこでも演奏できるようなアプリを開発しました。<br>
+				それが、今あなたのみているサイト「Keypod」なのです。
+			</p>
+		</div>
+		<div class="getstarted">
+			<h2>さあ、始めよう!</h2>
+			<p>
+				Keypodを使ってあなたのセッションをお楽しみください!
+			</p>
+			<div>
+				<a href="/login" class="getbutton">
+					<span>サインイン</span>
+				</a>
+				<a href="/signup" class="getbutton signup">
+					<span>サインアップ</span>
+				</a>
+			</div>
+		</div>
+		<footer>
+			<small>© 2020 Keypod by Kazuki Isogai.</small>
+		</footer>
+	</main>
 </body>
 </html>

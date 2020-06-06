@@ -137,12 +137,40 @@ post '/workspace/edit/:url/:id' do
 
   end
 
+  if params[:description] == ""
+    desc = "説明なし"
+  else
+    desc = params[:description]
+  end
+
   key.update(
     path: msc_url,
     data_type: data_type,
-    description: params[:description]
+    description: desc
   )
 
   redirect "/workspace/edit/#{workspace.url}"
 
+end
+
+post '/workspace/edit/delete/:url/:id' do
+  workspace = Workspace.find_by(url: params[:url])
+  key = workspace.keys.find(params[:id])
+
+  key.update(
+    path: nil,
+    data_type: nil,
+    description: nil
+  )
+
+  redirect "/workspace/edit/#{workspace.url}"
+end
+
+get '/workspace/view/:url' do
+  @workspace = Workspace.find_by(url: params[:url])
+
+  @strs = ('a'..'z').to_a
+  @strs.push(*'0'..'9')
+
+  erb :workspace
 end

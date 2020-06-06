@@ -10,52 +10,50 @@
   </head>
   <body>
 
-		<div id="p5_loading" style="position: absolute;">音楽ファイルを読み込み中...</div>
+		<div id="p5_loading" style="position: relative;">音楽ファイルを読み込み中...</div>
 
 		<div class="keyboard">
-			<div class="keyboard__row keyboard__row--h1">
-			</div>
 			<div class="keyboard__row">
 				<div class="key--double">
 				</div>
 				<div class="key--letter" id="1" data-key="49">
-					<div>1</div><br>
+					<div>1</div>
 					<small><%= @workspace.keys.find_by(key: "1").description %></small>
 				</div>
 				<div class="key--letter" id="2" data-key="50">
-					<div>2</div><br>
+					<div>2</div>
 					<small><%= @workspace.keys.find_by(key: "2").description %></small>
 				</div>
 				<div class="key--letter" id="3" data-key="51">
-					<div>3</div><br>
+					<div>3</div>
 					<small><%= @workspace.keys.find_by(key: "3").description %></small>
 				</div>
 				<div class="key--letter" id="4" data-key="52">
-					<div>4</div><br>
+					<div>4</div>
 					<small><%= @workspace.keys.find_by(key: "4").description %></small>
 				</div>
 				<div class="key--letter" id="5" data-key="53">
-					<div>5</div><br>
+					<div>5</div>
 					<small><%= @workspace.keys.find_by(key: "5").description %></small>
 				</div>
 				<div class="key--letter" id="6" data-key="54">
-					<div>6</div><br>
+					<div>6</div>
 					<small><%= @workspace.keys.find_by(key: "6").description %></small>
 				</div>
 				<div class="key--letter" id="7" data-key="55">
-					<div>7</div><br>
+					<div>7</div>
 					<small><%= @workspace.keys.find_by(key: "7").description %></small>
 				</div>
 				<div class="key--letter" id="8" data-key="56">
-					<div>8</div><br>
+					<div>8</div>
 					<small><%= @workspace.keys.find_by(key: "8").description %></small>
 				</div>
 				<div class="key--letter" id="9" data-key="57">
-					<div>9</div><br>
+					<div>9</div>
 					<small><%= @workspace.keys.find_by(key: "9").description %></small>
 				</div>
 				<div class="key--letter" id="0" data-key="48">
-					<div>0</div><br>
+					<div>0</div>
 					<small><%= @workspace.keys.find_by(key: "0").description %></small>
 				</div>
 				<div class="key--double">
@@ -232,22 +230,23 @@
 			var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-			// API読み込み後に、各エリアにプレーヤーを埋め込む
 			function onYouTubeIframeAPIReady() {
 				<% @strs.each do |str| %>
 					<% unless @workspace.keys.find_by(key: str).path == nil %>
 						<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
-									var ytWidth = 0;
-									var ytHeight = 0;
-									ytPlayer_<%= str %> = new YT.Player('player_<%= str %>', {
-										height: ytHeight,
-										width: ytWidth,
-										videoId: '<%= @workspace.keys.find_by(key: str).path %>',
-										rel: 0,
-										controls: 0,
-										autoplay: 0,
-										origin: location.protocol + '//' + location.hostname + "/"
-									});
+							var ytWidth = 0;
+							var ytHeight = 0;
+							ytPlayer_<%= str %> = new YT.Player('player_<%= str %>', {
+								height: ytHeight,
+								width: ytWidth,
+								videoId: '<%= @workspace.keys.find_by(key: str).path %>',
+								playerVars: {
+								rel: 0,
+								controls: 0,
+								autoplay: 0,
+								origin: location.protocol + '//' + location.hostname + "/"
+								}
+							});
 						<% end %>
 					<% end %>
 				<% end %>
@@ -258,9 +257,10 @@
 					<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
 
 						function stopVideo_<%= str %>() {
-							ytPlayer_<%= str %>.stopVideo();
+							ytPlayer_<%= str %>.pauseVideo();
 						}
 						function playVideo_<%= str %>() {
+							ytPlayer_<%= str %>.seekTo(0);
 							ytPlayer_<%= str %>.playVideo();
 						}
 
@@ -273,7 +273,7 @@
 			small {
 				font-size: 10px;
 				word-break: break-all;
-				line-height: 6px;
+				line-height: 10px;
 			}
 			.keyboard {
 					text-align: center;

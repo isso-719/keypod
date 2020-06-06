@@ -16,9 +16,12 @@
 		</form>
 		<br>
 		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post">
-			<input type="text" name="youtube" placeholder="YouTube Video ID">
+			<input type="text" name="youtube" placeholder="YouTube Video URL">
 			<input type="text" name="description" value="<%= key.description %>" placeholder="説明">
 			<input type="submit" value="YouTubeでアップロード">
+		</form>
+		<form action="/workspace/edit/delete/<%= @workspace.url %>/<%= key.id %>" method="post">
+			<input type="submit" value="登録したデータを削除">
 		</form>
 	<% end %>
 
