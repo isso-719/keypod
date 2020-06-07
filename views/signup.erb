@@ -12,11 +12,12 @@
 
 		<div class="logo">
 			<a href="/"><img src="/assets/images/logo_accent.svg" alt="logo"></a>
+			<h1>サインアップ</h1>
 		</div>
 
 		<% if session[:signup_error] %>
 			<div class="error">
-				<p><%= session[:signup_error] %></p>
+				<h4><%= session[:signup_error] %></h4>
 			</div>
 			<% session[:signup_error] = nil %>
 		<% end %>

@@ -4,7 +4,7 @@
   min-width: 400px;
   text-align: left;
   margin-bottom: 2em;
-  padding: 64px;
+  padding: 32px 64px 48px 64px;
   border-radius: 16px;
   border: solid 2px #999;
   background: #002235;
@@ -15,6 +15,10 @@
   text-align: center;
 }
 
+.logo h1 {
+  color: #fff7ee;
+}
+
 .error {
   margin: 0 auto;
   text-align: center;
@@ -22,7 +26,7 @@
 }
 
 .logo img {
-  width: 50px;
+  width: 48px;
 }
 
 .form label {
