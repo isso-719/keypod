@@ -4,23 +4,56 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>サインアップ - Keypod</title>
+	<link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
 
-	<% if session[:signup_error] %>
-		<div class="error">
-			<h3>エラー項目があります</h3>
-			<p><%= session[:signup_error] %></p>
+	<div class="form">
+
+		<div class="logo">
+			<a href="/"><img src="/assets/images/logo_accent.svg" alt="logo"></a>
 		</div>
-		<% session[:signup_error] = nil %>
-	<% end %>
-	<form action="/signup" method="post">
-		<input type="text" name="name" placeholder="User Name">
-		<input type="text" name="mail" placeholder="Mail Address">
-		<input type="password" name="password" placeholder="Password">
-		<input type="password" name="password_confirmation" placeholder="Re Type Password">
-		<input type="submit" value="Create Account">
-	</form>
+
+		<% if session[:signup_error] %>
+			<div class="error">
+				<p><%= session[:signup_error] %></p>
+			</div>
+			<% session[:signup_error] = nil %>
+		<% end %>
+
+		<form action="/signup" method="post">
+
+			<div class="text-input">
+				<label for="name">ユーザー名</label>
+				<input type="text" name="name" id="name" placeholder="" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="text-input">
+				<label for="mail">メールアドレス</label>
+				<input type="text" name="mail" id="mail" placeholder="" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="text-input">
+				<label for="password">パスワード</label>
+				<input type="password" name="password" id="password" placeholder="" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="text-input">
+				<label for="password_confirmation">パスワードの確認</label>
+				<input type="password" name="password_confirmation" id="password_confirmation" placeholder="" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="form-bottom">
+				<input type="submit" id="submit" value="Submit"  />
+				<a href="/login">アカウントを持っていますか?<br>ログインする</a>
+			</div>
+
+		</form>
+	</div>
 
 </body>
 </html>
