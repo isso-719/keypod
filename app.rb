@@ -51,6 +51,13 @@ post '/signup' do
       session[:user] = @user.id
       redirect '/'
     else
+      if User.find_by(name: params[:name]).present?
+        session[:signup_error] = 'ユーザー名がすでに存在します'
+      elsif User.find_by(mail: params[:mail]).present?
+        session[:signup_error] = 'このメールアドレスは登録済みです'
+      else
+        session[:signup_error] = '入力を確認してください'
+      end
       erb :signup
     end
   end
