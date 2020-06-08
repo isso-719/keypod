@@ -10,13 +10,13 @@ class User < ActiveRecord::Base
 
   validates :name,
     presence: true,
-    format: { with: /^[0-9a-zA-Z]*$/ },
-    length: { maximum: 7 }
+    format: { with: /\A[0-9a-zA-Z]*\z/ },
+    length: { minimum: 7 }
   validates :mail,
     presence: true,
     format: { with: /\A([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+\z/ }
   validates :password_digest,
-    length: { maximum: 7 }
+    length: { minimum: 7 }
 end
 
 class Workspace < ActiveRecord::Base
