@@ -67,20 +67,27 @@ end
 
 post '/workspace/create' do
   random = SecureRandom.urlsafe_base64
-  session_user.workspaces.create(
-    name: params[:name],
-    description: params[:description],
-    url: random
-  )
-  workspace = Workspace.last
-  strs = ('a'..'z').to_a
-  strs.push(*'0'..'9')
-  strs.each do |str|
-    workspace.keys.create(
-      key: str
+
+  if Workspace.find_by(url: random).nil?
+    session_user.workspaces.create(
+      name: params[:name],
+      description: params[:description],
+      url: random
     )
+    workspace = Workspace.last
+    strs = ('a'..'z').to_a
+    strs.push(*'0'..'9')
+    strs.each do |str|
+      workspace.keys.create(
+        key: str
+      )
+    end
+    redirect '/'
+
+  else
+    "内部エラーが発生しました。もう一度操作をやり直してください"
   end
-  redirect '/'
+
 end
 
 post '/workspace/delete/:id' do
