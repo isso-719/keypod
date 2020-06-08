@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
   has_many :workspaces
 
   validates :name,
-    presense: true,
+    presence: true,
     format: { with: /^[0-9a-zA-Z]*$/ },
     length: { maximum: 7 }
   validates :mail,
-    presense: true,
+    presence: true,
     format: { with: /^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/ }
   validates :password_digest,
     length: { maximum: 7 }
@@ -24,7 +24,7 @@ class Workspace < ActiveRecord::Base
   belongs_to :user
 
   validates :url,
-    presense: true
+    presence: true
 end
 
 class Key < ActiveRecord::Base
