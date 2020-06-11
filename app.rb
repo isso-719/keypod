@@ -146,7 +146,12 @@ post '/workspace/edit/:url/:id' do
     msc_url = upload["url"]
 
   else
-    msc_url = params[:youtube][-11 .. -1]
+    tmp = params[:youtube].split("?v=")
+    if tmp[1].nil?
+      msc_url = params[:youtube][-11 .. -1]
+    else
+      msc_url = tmp[1][0 .. 10]
+    end
     data_type = "youtube"
 
   end
