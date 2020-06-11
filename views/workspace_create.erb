@@ -4,14 +4,37 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ワークスペースを作成 - Keypod</title>
+	<link rel="stylesheet" href="/assets/css/workspace_create.css">
 </head>
 <body>
 
-	<form action="/workspace/create" method="post">
-		<input type="text" name="name" placeholder="ワークスペースのタイトル">
-		<input type="text" name="description" placeholder="説明">
-		<input type="submit" value="ワークスペースを作成">
-	</form>
+	<div class="form">
+
+		<div class="logo">
+			<a href="/"><img src="/assets/images/logo_accent.svg" alt="logo"></a>
+			<h1>ワークスペースを作成</h1>
+		</div>
+
+		<form action="/workspace/create" method="post">
+			<div class="text-input">
+				<label for="name">ワークスペース名</label>
+				<input type="text" name="name" placeholder="名称未設定" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="text-input">
+				<label for="description">説明</label>
+				<textarea name="description" placeholder="最高のセッションをするためのワークスペースです!"></textarea>
+				<span class="separator"> </span>
+			</div>
+
+			<div class="form-bottom">
+				<input type="submit" id="submit" value="Create"  />
+				<a href="/">戻る</a>
+			</div>
+
+		</form>
+	</div>
 
 </body>
 </html>

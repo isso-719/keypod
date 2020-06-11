@@ -10,6 +10,7 @@ gem 'bcrypt'
 gem 'cloudinary'
 gem 'dotenv'
 gem 'pry'
+gem 'browser'
 
 group :development do
   gem 'sqlite3', '~>1.4.1'

@@ -4,27 +4,49 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ダッシュボード - Keypod</title>
+	<link rel="stylesheet" href="/assets/css/index_session.css">
+	<script src="https://kit.fontawesome.com/e04b7045d3.js" crossorigin="anonymous"></script>
+	<link rel="shortcut icon" href="/assets/images/favicon.ico">
 </head>
 <body>
-	<h2>Welcome <%= session_user.name %>!</h2>
-	<a href="/logout">ログアウト</a>
-	<a href="/workspace/create">ワークスペースの作成</a>
-	<% @workspaces.each do |workspace| %>
-	<div>
+	<header>
 		<div>
-			<h1><%= workspace.name %></h1>
+			<a href="/">
+				<img src="/assets/images/logo_accent.svg" alt="logo">
+				<h1>Keypod</h1>
+			</a>
 		</div>
 		<div>
-			<small><%= workspace.description %></small>
+			<a href="/workspace/create"><i class="fas fa-plus"></i></a>
+			<a href="/logout"><i class="fas fa-sign-out-alt"></i></a>
 		</div>
-		<div>
-			<a href="/workspace/<%= workspace.url %>">開く</a>
-			<a href="/workspace/edit/<%= workspace.url %>">編集</a>
-			<form action="/workspace/delete/<%= workspace.id %>" method="post">
-				<input type="submit" value="削除">
-			</form>
+	</header>
+	<div class="card_wrap">
+		<a href="/workspace/create">
+			<div class="card card_add">
+				<i class="fas fa-plus"></i>
+			</div>
+		</a>
+		<% @workspaces.each do |workspace| %>
+		<div class="card">
+			<div class="info">
+				<h1><%= workspace.name %></h1>
+				<small><%= User.find(workspace.user_id).name %></small>
+				<p><%= workspace.description %></p>
+			</div>
+
+			<div class="buttons">
+				<a class="btn-a btn-square" href="/workspace/<%= workspace.url %>">開く</a>
+				<!-- <a href="/workspace/edit/<%= workspace.url %>">編集</a> -->
+				<form action="/workspace/delete/<%= workspace.id %>" method="post">
+					<input class="btn-input btn-square" type="submit" value="削除">
+				</form>
+			</div>
 		</div>
+		<% end %>
 	</div>
-	<% end %>
+	<footer>
+		<small>© 2020 Keypod by Kazuki Isogai.</small>
+	</footer>
 </body>
 </html>

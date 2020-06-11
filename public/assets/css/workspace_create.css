@@ -19,12 +19,6 @@
   color: #fff7ee;
 }
 
-.error {
-  margin: 0 auto;
-  text-align: center;
-  color: #d3c909;
-}
-
 .logo img {
   width: 48px;
 }
@@ -42,7 +36,7 @@
 }
 
 .form form input[type="text"],
-.form form input[type="password"] {
+textarea {
   width: 100%;
   padding: 0.75em 0 4px;
   padding-left: 0;
@@ -69,7 +63,7 @@
   border-radius: 10px;
 }
 
-.form form input[type="submit"]:hover {
+input[type="submit"]:hover {
   cursor: pointer;
   -webkit-transform: translateY(2px);
   transform: translateY(2px);

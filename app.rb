@@ -3,13 +3,35 @@ Bundler.require
 require 'sinatra/reloader' if development?
 require './models.rb'
 
+require 'browser/browser'
+require 'browser/aliases'
+Browser::Base.include(Browser::Aliases)
+
 enable :sessions
 
 def session_user
   User.find(session[:user])
 end
 
+def browser_check
+  ua = request.user_agent
+  browser = Browser.new(ua)
+  if browser.mobile?
+    redirect '/sp'
+  end
+end
+
+get '/sp' do
+  ua = request.user_agent
+  browser = Browser.new(ua)
+  unless browser.mobile?
+    redirect '/'
+  end
+  erb :mobile
+end
+
 get '/' do
+  browser_check
   if session[:user].nil?
     erb :index
   else
@@ -19,6 +41,7 @@ get '/' do
 end
 
 get '/login' do
+  browser_check
   erb :login
 end
 
@@ -76,8 +99,13 @@ post '/workspace/create' do
   random = SecureRandom.urlsafe_base64
 
   if Workspace.find_by(url: random).nil?
+    if params[:name] == ""
+      name = "名称未設定"
+    else
+      name = params[:name]
+    end
     session_user.workspaces.create(
-      name: params[:name],
+      name: name,
       description: params[:description],
       url: random
     )
