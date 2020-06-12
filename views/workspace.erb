@@ -14,10 +14,17 @@
   <body>
 		<header>
 			<div>
-				<a href="/">
-					<i class="fas fa-step-backward"></i>
-					<h1>戻る</h1>
-				</a>
+				<% if session[:user].presence && @workspace.user_id == session_user.id %>
+					<a href="/">
+						<i class="fas fa-step-backward"></i>
+						<h1>戻る</h1>
+					</a>
+				<% else %>
+					<a href="/">
+						<i class="fas fa-home"></i>
+						<h1>ホームに戻る</h1>
+					</a>
+				<% end %>
 			</div>
 			<div>
 				<a href="/workspace/edit/<%= @workspace.url %>">
@@ -39,43 +46,43 @@
 			<div class="keyboard__row">
 				<div class="key--double">
 				</div>
-				<div class="key--letter allow" id="1" data-key="49">
+				<div class="key--letter js-modal-open" id="1" data-key="49" data-target="modal_1">
 					<div>1</div>
 					<small><%= @workspace.keys.find_by(key: "1").description %></small>
 				</div>
-				<div class="key--letter allow" id="2" data-key="50">
+				<div class="key--letter js-modal-open" id="2" data-key="50" data-target="modal_2">
 					<div>2</div>
 					<small><%= @workspace.keys.find_by(key: "2").description %></small>
 				</div>
-				<div class="key--letter allow" id="3" data-key="51">
+				<div class="key--letter js-modal-open" id="3" data-key="51" data-target="modal_3">
 					<div>3</div>
 					<small><%= @workspace.keys.find_by(key: "3").description %></small>
 				</div>
-				<div class="key--letter allow" id="4" data-key="52">
+				<div class="key--letter js-modal-open" id="4" data-key="52" data-target="modal_4">
 					<div>4</div>
 					<small><%= @workspace.keys.find_by(key: "4").description %></small>
 				</div>
-				<div class="key--letter allow" id="5" data-key="53">
+				<div class="key--letter js-modal-open" id="5" data-key="53" data-target="modal_5">
 					<div>5</div>
 					<small><%= @workspace.keys.find_by(key: "5").description %></small>
 				</div>
-				<div class="key--letter allow" id="6" data-key="54">
+				<div class="key--letter js-modal-open" id="6" data-key="54" data-target="modal_6">
 					<div>6</div>
 					<small><%= @workspace.keys.find_by(key: "6").description %></small>
 				</div>
-				<div class="key--letter allow" id="7" data-key="55">
+				<div class="key--letter js-modal-open" id="7" data-key="55" data-target="modal_7">
 					<div>7</div>
 					<small><%= @workspace.keys.find_by(key: "7").description %></small>
 				</div>
-				<div class="key--letter allow" id="8" data-key="56">
+				<div class="key--letter js-modal-open" id="8" data-key="56" data-target="modal_8">
 					<div>8</div>
 					<small><%= @workspace.keys.find_by(key: "8").description %></small>
 				</div>
-				<div class="key--letter allow" id="9" data-key="57">
+				<div class="key--letter js-modal-open" id="9" data-key="57" data-target="modal_9">
 					<div>9</div>
 					<small><%= @workspace.keys.find_by(key: "9").description %></small>
 				</div>
-				<div class="key--letter allow" id="0" data-key="48">
+				<div class="key--letter js-modal-open" id="0" data-key="48" data-target="modal_0">
 					<div>0</div>
 					<small><%= @workspace.keys.find_by(key: "0").description %></small>
 				</div>
@@ -89,34 +96,34 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w4">
 				</div>
-				<div class="key--letter allow" id="q" data-char="Q">Q<br>
+				<div class="key--letter js-modal-open" id="q" data-char="Q" data-target="modal_q">Q<br>
 					<small><%= @workspace.keys.find_by(key: "q").description %></small>
 				</div>
-				<div class="key--letter allow" id="w" data-char="W">W<br>
+				<div class="key--letter js-modal-open" id="w" data-char="W" data-target="modal_w">W<br>
 					<small><%= @workspace.keys.find_by(key: "w").description %></small>
 				</div>
-				<div class="key--letter allow" id="e" data-char="E">E<br>
+				<div class="key--letter js-modal-open" id="e" data-char="E" data-target="modal_e">E<br>
 					<small><%= @workspace.keys.find_by(key: "e").description %></small>
 				</div>
-				<div class="key--letter allow" id="r" data-char="R">R<br>
+				<div class="key--letter js-modal-open" id="r" data-char="R" data-target="modal_r">R<br>
 					<small><%= @workspace.keys.find_by(key: "r").description %></small>
 				</div>
-				<div class="key--letter allow" id="t" data-char="T">T<br>
+				<div class="key--letter js-modal-open" id="t" data-char="T" data-target="modal_t">T<br>
 					<small><%= @workspace.keys.find_by(key: "t").description %></small>
 				</div>
-				<div class="key--letter allow" id="y" data-char="Y">Y<br>
+				<div class="key--letter js-modal-open" id="y" data-char="Y" data-target="modal_y">Y<br>
 					<small><%= @workspace.keys.find_by(key: "y").description %></small>
 				</div>
-				<div class="key--letter allow" id="u" data-char="U">U<br>
+				<div class="key--letter js-modal-open" id="u" data-char="U" data-target="modal_u">U<br>
 					<small><%= @workspace.keys.find_by(key: "u").description %></small>
 				</div>
-				<div class="key--letter allow" id="i" data-char="I">I<br>
+				<div class="key--letter js-modal-open" id="i" data-char="I" data-target="modal_i">I<br>
 					<small><%= @workspace.keys.find_by(key: "i").description %></small>
 				</div>
-				<div class="key--letter allow" id="o" data-char="O">O<br>
+				<div class="key--letter js-modal-open" id="o" data-char="O" data-target="modal_o">O<br>
 					<small><%= @workspace.keys.find_by(key: "o").description %></small>
 				</div>
-				<div class="key--letter allow" id="p" data-char="P">P<br>
+				<div class="key--letter js-modal-open" id="p" data-char="P" data-target="modal_p">P<br>
 					<small><%= @workspace.keys.find_by(key: "p").description %></small>
 				</div>
 				<div class="key--double" data-char="{[">
@@ -129,31 +136,31 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w5">
 				</div>
-				<div class="key--letter allow" id="a" data-char="A">A<br>
+				<div class="key--letter js-modal-open" id="a" data-char="A" data-target="modal_a">A<br>
 					<small><%= @workspace.keys.find_by(key: "a").description %></small>
 				</div>
-				<div class="key--letter allow" id="s" data-char="S">S<br>
+				<div class="key--letter js-modal-open" id="s" data-char="S" data-target="modal_s">S<br>
 					<small><%= @workspace.keys.find_by(key: "s").description %></small>
 				</div>
-				<div class="key--letter allow" id="d" data-char="D">D<br>
+				<div class="key--letter js-modal-open" id="d" data-char="D" data-target="modal_d">D<br>
 					<small><%= @workspace.keys.find_by(key: "d").description %></small>
 				</div>
-				<div class="key--letter allow" id="f" data-char="F">F<br>
+				<div class="key--letter js-modal-open" id="f" data-char="F" data-target="modal_f">F<br>
 					<small><%= @workspace.keys.find_by(key: "f").description %></small>
 				</div>
-				<div class="key--letter allow" id="g" data-char="G">G<br>
+				<div class="key--letter js-modal-open" id="g" data-char="G" data-target="modal_g">G<br>
 					<small><%= @workspace.keys.find_by(key: "g").description %></small>
 				</div>
-				<div class="key--letter allow" id="h" data-char="H">H<br>
+				<div class="key--letter js-modal-open" id="h" data-char="H" data-target="modal_h">H<br>
 					<small><%= @workspace.keys.find_by(key: "h").description %></small>
 				</div>
-				<div class="key--letter allow" id="j" data-char="J">J<br>
+				<div class="key--letter js-modal-open" id="j" data-char="J" data-target="modal_j">J<br>
 					<small><%= @workspace.keys.find_by(key: "j").description %></small>
 				</div>
-				<div class="key--letter allow" id="k" data-char="K">K<br>
+				<div class="key--letter js-modal-open" id="k" data-char="K" data-target="modal_k">K<br>
 					<small><%= @workspace.keys.find_by(key: "k").description %></small>
 				</div>
-				<div class="key--letter allow" id="l" data-char="L">L<br>
+				<div class="key--letter js-modal-open" id="l" data-char="L" data-target="modal_l">L<br>
 					<small><%= @workspace.keys.find_by(key: "l").description %></small>
 				</div>
 				<div class="key--double">
@@ -166,25 +173,25 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w6">
 				</div>
-				<div class="key--letter allow" id="z" data-char="Z">Z<br>
+				<div class="key--letter js-modal-open" id="z" data-char="Z" data-target="modal_z">Z<br>
 					<small><%= @workspace.keys.find_by(key: "z").description %></small>
 				</div>
-				<div class="key--letter allow" id="x" data-char="X">X<br>
+				<div class="key--letter js-modal-open" id="x" data-char="X" data-target="modal_x">X<br>
 					<small><%= @workspace.keys.find_by(key: "x").description %></small>
 				</div>
-				<div class="key--letter allow" id="c" data-char="C">C<br>
+				<div class="key--letter js-modal-open" id="c" data-char="C" data-target="modal_c">C<br>
 					<small><%= @workspace.keys.find_by(key: "c").description %></small>
 				</div>
-				<div class="key--letter allow" id="v" data-char="V">V<br>
+				<div class="key--letter js-modal-open" id="v" data-char="V" data-target="modal_v">V<br>
 					<small><%= @workspace.keys.find_by(key: "v").description %></small>
 				</div>
-				<div class="key--letter allow" id="b" data-char="B">B<br>
+				<div class="key--letter js-modal-open" id="b" data-char="B" data-target="modal_b">B<br>
 					<small><%= @workspace.keys.find_by(key: "b").description %></small>
 				</div>
-				<div class="key--letter allow" id="n" data-char="N">N<br>
+				<div class="key--letter js-modal-open" id="n" data-char="N" data-target="modal_n">N<br>
 					<small><%= @workspace.keys.find_by(key: "n").description %></small>
 				</div>
-				<div class="key--letter allow" id="m" data-char="M">M<br>
+				<div class="key--letter js-modal-open" id="m" data-char="M" data-target="modal_m">M<br>
 					<small><%= @workspace.keys.find_by(key: "m").description %></small>
 				</div>
 				<div class="key--double">
@@ -226,6 +233,15 @@
 				<% if @workspace.keys.find_by(key: str).data_type == "youtube" %>
 					<div id="player_<%= str %>" style="display: none;"></div>
 				<% end %>
+			<% end %>
+			<% if session[:user].presence && @workspace.user_id == session_user.id %>
+				<div id="modal_<%= str %>" class="modal js-modal">
+						<div class="modal__bg js-modal-close"></div>
+						<div class="modal__content">
+								<p><%= str %>モーダルウィンドウです。ここにモーダルウィンドウで表示したいコンテンツを入れます。モーダルウィンドウを閉じる場合は下の「閉じる」をクリックするか、背景の黒い部分をクリックしても閉じることができます。</p>
+								<a class="js-modal-close" href="">閉じる</a>
+						</div>
+				</div>
 			<% end %>
 		<% end %>
 
@@ -290,9 +306,7 @@
 					<% end %>
 				<% end %>
 			<% end %>
-		</script>
 
-		<script>
 			function getKey (e) {
 					var location = e.location;
 					var selector;
@@ -437,6 +451,21 @@
 					<% end %>
 				}
 			}
+
+			$(function(){
+					$('.js-modal-open').each(function(){
+							$(this).on('click',function(){
+									var target = $(this).data('target');
+									var modal = document.getElementById(target);
+									$(modal).fadeIn();
+									return false;
+							});
+					});
+					$('.js-modal-close').on('click',function(){
+							$('.js-modal').fadeOut();
+							return false;
+					});
+			});
 		</script>
 
   </body>

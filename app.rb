@@ -212,12 +212,3 @@ post '/workspace/edit/delete/:url/:id' do
 
   redirect "/workspace/edit/#{workspace.url}"
 end
-
-get '/workspace/view/:url' do
-  @workspace = Workspace.find_by(url: params[:url])
-
-  @strs = ('a'..'z').to_a
-  @strs.push(*'0'..'9')
-
-  erb :workspace
-end
