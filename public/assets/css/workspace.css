@@ -268,7 +268,7 @@ small {
 }
 
 .modal__content {
-  background: #faf6f1;
+  background: #063852;
   left: 50%;
   padding: 40px;
   position: absolute;
@@ -288,7 +288,7 @@ small {
 
 .modal__content h1,
 .modal__content h2 {
-  color: #333230;
+  color: #fff7ee;
 }
 
 .modal__content h2 {
