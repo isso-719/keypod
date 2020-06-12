@@ -27,7 +27,8 @@
 				<% end %>
 			</div>
 			<div>
-				<a href="/workspace/edit/<%= @workspace.url %>">
+				<a class="share">
+					<textarea id="js-copytext">https://keypod.net/workspace/<%= @workspace.url %></textarea>
 					<i class="fas fa-share"></i>
 					<h1>共有</h1>
 				</a>
@@ -40,6 +41,10 @@
 				<div class="dot"></div>
 				<div class="dot"></div>
 			</div>
+		</div>
+
+		<div class="alert">
+			<p>URLをコピーしました!</p>
 		</div>
 
 		<div class="keyboard">
@@ -236,26 +241,43 @@
 			<% end %>
 			<% if session[:user].presence && @workspace.user_id == session_user.id %>
 				<div id="modal_<%= str %>" class="modal js-modal">
-						<div class="modal__bg js-modal-close"></div>
+					<div class="modal__bg js-modal-close"></div>
 						<div class="modal__content">
-								<p><%= str %>モーダルウィンドウです。ここにモーダルウィンドウで表示したいコンテンツを入れます。モーダルウィンドウを閉じる場合は下の「閉じる」をクリックするか、背景の黒い部分をクリックしても閉じることができます。</p>
+							<h1>"<%= @workspace.keys.find_by(key: str).key.upcase %>"キーを編集する</h1>
+							<br>
+							<div>
 								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post" enctype="multipart/form-data">
-									<p><%= @workspace.keys.find_by(key: str).key %></p>
+									<h2>音声ファイルを追加する</h2>
+									<br>
 									<input type="file" name="file">
 									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<br>
 									<input type="submit" value="アップロード">
 								</form>
-								<br>
 								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
+									<h2>YouTube動画を追加する</h2>
+									<br>
 									<input type="text" name="youtube" placeholder="YouTube Video URL">
 									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
 									<input type="submit" value="YouTubeでアップロード">
 								</form>
+							</div>
+							<div>
+								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
+									<h2>説明を編集する</h2>
+									<br>
+									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<input type="submit" value="説明を編集する">
+								</form>
 								<form action="/workspace/edit/delete/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
+									<h2>登録したデータを削除</h2>
 									<input type="submit" value="登録したデータを削除">
 								</form>
-								<a class="js-modal-close" href="">閉じる</a>
+							</div>
+							<br>
+							<a class="js-modal-close" href="">閉じる</a>
 						</div>
+					</div>
 				</div>
 			<% end %>
 		<% end %>
@@ -470,7 +492,6 @@
 			}
 
 			var modal_stats = "close"
-
 			$(function(){
 					$('.js-modal-open').each(function(){
 							$(this).on('click',function(){
@@ -486,6 +507,26 @@
 							modal_stats = "close"
 							return false;
 					});
+			});
+
+			$(function() {
+				$('.share').on('click', function(){
+					let text = $('#js-copytext').text();
+					let $textarea = $('<textarea></textarea>');
+					$textarea.text(text);
+					$(this).append($textarea);
+					$textarea.select();
+					document.execCommand('copy');
+					$textarea.remove();
+					$(".alert").fadeIn("0.2s");
+					setTimeout(function() {
+						$('.alert').fadeOut("0.2s");
+					}, 2000);
+				});
+			});
+
+			$(".alert").click(function () {
+				$(".alert").fadeOut("0.2s");
 			});
 		</script>
 
