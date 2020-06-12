@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= @workspace.name %> - Keypod</title>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="/assets/css/workspace.css">
 		<script src="https://kit.fontawesome.com/e04b7045d3.js" crossorigin="anonymous"></script>
+		<link rel="shortcut icon" href="/assets/images/favicon.ico">
   </head>
   <body>
 		<header>
@@ -19,8 +20,9 @@
 				</a>
 			</div>
 			<div>
-				<a href="/workspace/edit/<%= @workspace.url  %>">
+				<a href="/workspace/edit/<%= @workspace.url %>">
 					<i class="fas fa-edit"></i>
+					<h1>編集</h1>
 				</a>
 			</div>
 		</header>
@@ -37,43 +39,43 @@
 			<div class="keyboard__row">
 				<div class="key--double">
 				</div>
-				<div class="key--letter" id="1" data-key="49">
+				<div class="key--letter allow" id="1" data-key="49">
 					<div>1</div>
 					<small><%= @workspace.keys.find_by(key: "1").description %></small>
 				</div>
-				<div class="key--letter" id="2" data-key="50">
+				<div class="key--letter allow" id="2" data-key="50">
 					<div>2</div>
 					<small><%= @workspace.keys.find_by(key: "2").description %></small>
 				</div>
-				<div class="key--letter" id="3" data-key="51">
+				<div class="key--letter allow" id="3" data-key="51">
 					<div>3</div>
 					<small><%= @workspace.keys.find_by(key: "3").description %></small>
 				</div>
-				<div class="key--letter" id="4" data-key="52">
+				<div class="key--letter allow" id="4" data-key="52">
 					<div>4</div>
 					<small><%= @workspace.keys.find_by(key: "4").description %></small>
 				</div>
-				<div class="key--letter" id="5" data-key="53">
+				<div class="key--letter allow" id="5" data-key="53">
 					<div>5</div>
 					<small><%= @workspace.keys.find_by(key: "5").description %></small>
 				</div>
-				<div class="key--letter" id="6" data-key="54">
+				<div class="key--letter allow" id="6" data-key="54">
 					<div>6</div>
 					<small><%= @workspace.keys.find_by(key: "6").description %></small>
 				</div>
-				<div class="key--letter" id="7" data-key="55">
+				<div class="key--letter allow" id="7" data-key="55">
 					<div>7</div>
 					<small><%= @workspace.keys.find_by(key: "7").description %></small>
 				</div>
-				<div class="key--letter" id="8" data-key="56">
+				<div class="key--letter allow" id="8" data-key="56">
 					<div>8</div>
 					<small><%= @workspace.keys.find_by(key: "8").description %></small>
 				</div>
-				<div class="key--letter" id="9" data-key="57">
+				<div class="key--letter allow" id="9" data-key="57">
 					<div>9</div>
 					<small><%= @workspace.keys.find_by(key: "9").description %></small>
 				</div>
-				<div class="key--letter" id="0" data-key="48">
+				<div class="key--letter allow" id="0" data-key="48">
 					<div>0</div>
 					<small><%= @workspace.keys.find_by(key: "0").description %></small>
 				</div>
@@ -87,34 +89,34 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w4">
 				</div>
-				<div class="key--letter" id="q" data-char="Q">Q<br>
+				<div class="key--letter allow" id="q" data-char="Q">Q<br>
 					<small><%= @workspace.keys.find_by(key: "q").description %></small>
 				</div>
-				<div class="key--letter" id="w" data-char="W">W<br>
+				<div class="key--letter allow" id="w" data-char="W">W<br>
 					<small><%= @workspace.keys.find_by(key: "w").description %></small>
 				</div>
-				<div class="key--letter" id="e" data-char="E">E<br>
+				<div class="key--letter allow" id="e" data-char="E">E<br>
 					<small><%= @workspace.keys.find_by(key: "e").description %></small>
 				</div>
-				<div class="key--letter" id="r" data-char="R">R<br>
+				<div class="key--letter allow" id="r" data-char="R">R<br>
 					<small><%= @workspace.keys.find_by(key: "r").description %></small>
 				</div>
-				<div class="key--letter" id="t" data-char="T">T<br>
+				<div class="key--letter allow" id="t" data-char="T">T<br>
 					<small><%= @workspace.keys.find_by(key: "t").description %></small>
 				</div>
-				<div class="key--letter" id="y" data-char="Y">Y<br>
+				<div class="key--letter allow" id="y" data-char="Y">Y<br>
 					<small><%= @workspace.keys.find_by(key: "y").description %></small>
 				</div>
-				<div class="key--letter" id="u" data-char="U">U<br>
+				<div class="key--letter allow" id="u" data-char="U">U<br>
 					<small><%= @workspace.keys.find_by(key: "u").description %></small>
 				</div>
-				<div class="key--letter" id="i" data-char="I">I<br>
+				<div class="key--letter allow" id="i" data-char="I">I<br>
 					<small><%= @workspace.keys.find_by(key: "i").description %></small>
 				</div>
-				<div class="key--letter" id="o" data-char="O">O<br>
+				<div class="key--letter allow" id="o" data-char="O">O<br>
 					<small><%= @workspace.keys.find_by(key: "o").description %></small>
 				</div>
-				<div class="key--letter" id="p" data-char="P">P<br>
+				<div class="key--letter allow" id="p" data-char="P">P<br>
 					<small><%= @workspace.keys.find_by(key: "p").description %></small>
 				</div>
 				<div class="key--double" data-char="{[">
@@ -127,31 +129,31 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w5">
 				</div>
-				<div class="key--letter" id="a" data-char="A">A<br>
+				<div class="key--letter allow" id="a" data-char="A">A<br>
 					<small><%= @workspace.keys.find_by(key: "a").description %></small>
 				</div>
-				<div class="key--letter" id="s" data-char="S">S<br>
+				<div class="key--letter allow" id="s" data-char="S">S<br>
 					<small><%= @workspace.keys.find_by(key: "s").description %></small>
 				</div>
-				<div class="key--letter" id="d" data-char="D">D<br>
+				<div class="key--letter allow" id="d" data-char="D">D<br>
 					<small><%= @workspace.keys.find_by(key: "d").description %></small>
 				</div>
-				<div class="key--letter" id="f" data-char="F">F<br>
+				<div class="key--letter allow" id="f" data-char="F">F<br>
 					<small><%= @workspace.keys.find_by(key: "f").description %></small>
 				</div>
-				<div class="key--letter" id="g" data-char="G">G<br>
+				<div class="key--letter allow" id="g" data-char="G">G<br>
 					<small><%= @workspace.keys.find_by(key: "g").description %></small>
 				</div>
-				<div class="key--letter" id="h" data-char="H">H<br>
+				<div class="key--letter allow" id="h" data-char="H">H<br>
 					<small><%= @workspace.keys.find_by(key: "h").description %></small>
 				</div>
-				<div class="key--letter" id="j" data-char="J">J<br>
+				<div class="key--letter allow" id="j" data-char="J">J<br>
 					<small><%= @workspace.keys.find_by(key: "j").description %></small>
 				</div>
-				<div class="key--letter" id="k" data-char="K">K<br>
+				<div class="key--letter allow" id="k" data-char="K">K<br>
 					<small><%= @workspace.keys.find_by(key: "k").description %></small>
 				</div>
-				<div class="key--letter" id="l" data-char="L">L<br>
+				<div class="key--letter allow" id="l" data-char="L">L<br>
 					<small><%= @workspace.keys.find_by(key: "l").description %></small>
 				</div>
 				<div class="key--double">
@@ -164,25 +166,25 @@
 			<div class="keyboard__row">
 				<div class="key--bottom-left key--word key--w6">
 				</div>
-				<div class="key--letter" id="z" data-char="Z">Z<br>
+				<div class="key--letter allow" id="z" data-char="Z">Z<br>
 					<small><%= @workspace.keys.find_by(key: "z").description %></small>
 				</div>
-				<div class="key--letter" id="x" data-char="X">X<br>
+				<div class="key--letter allow" id="x" data-char="X">X<br>
 					<small><%= @workspace.keys.find_by(key: "x").description %></small>
 				</div>
-				<div class="key--letter" id="c" data-char="C">C<br>
+				<div class="key--letter allow" id="c" data-char="C">C<br>
 					<small><%= @workspace.keys.find_by(key: "c").description %></small>
 				</div>
-				<div class="key--letter" id="v" data-char="V">V<br>
+				<div class="key--letter allow" id="v" data-char="V">V<br>
 					<small><%= @workspace.keys.find_by(key: "v").description %></small>
 				</div>
-				<div class="key--letter" id="b" data-char="B">B<br>
+				<div class="key--letter allow" id="b" data-char="B">B<br>
 					<small><%= @workspace.keys.find_by(key: "b").description %></small>
 				</div>
-				<div class="key--letter" id="n" data-char="N">N<br>
+				<div class="key--letter allow" id="n" data-char="N">N<br>
 					<small><%= @workspace.keys.find_by(key: "n").description %></small>
 				</div>
-				<div class="key--letter" id="m" data-char="M">M<br>
+				<div class="key--letter allow" id="m" data-char="M">M<br>
 					<small><%= @workspace.keys.find_by(key: "m").description %></small>
 				</div>
 				<div class="key--double">
@@ -290,142 +292,6 @@
 			<% end %>
 		</script>
 
-		<style>
-			small {
-				font-size: 10px;
-				word-break: break-all;
-				line-height: 10px;
-			}
-			.keyboard {
-					text-align: center;
-					font-size: 14px;
-					font-family: sans-serif;
-			}
-
-			.keyboard__row {
-					display: inline-block;
-					height: 3em;
-					margin: 0.2em;
-			}
-
-			.keyboard__row--h1 {
-					height: 1.7em;
-					line-height: 1.4em;
-			}
-
-			.keyboard__row--h3 {
-					height: 3.3em;
-			}
-
-			.keyboard__row > * {
-					position: relative;
-					background: #333;
-					text-align: center;
-					color: #eee;
-					float: left;
-					border-radius: 0.3em;
-					margin: 0.2em;
-					padding: 0.2em;
-					width: 3.3em;
-					height: 100%;
-					box-sizing: border-box;
-					cursor: pointer;
-					-webkit-user-select: none;
-					border: 1px solid #444;
-					box-shadow: 0 0.2em 0 0.05em #222;
-					border-bottom-color: #555;
-			}
-
-			.keyboard__row--h1 > div {
-					width: 3.5em;
-			}
-
-			.keyboard__row > div[data-pressed] {
-					background: #2a2a2a;
-					color: #aaa;
-					position: relative;
-					top: 0.2em;
-					box-shadow: 0 0 0 0.05em black;
-			}
-
-			.key--w3 {
-					width: 4.6em;
-			}
-
-			.key--w4 {
-					width: 6em;
-			}
-
-			.key--w5 {
-					width: 6.5em;
-			}
-
-			.key--w6 {
-					width: 8.3em;
-			}
-
-			.key--space {
-					width: 18em;
-			}
-
-			.key--double > * {
-					padding-top: 0.1em;
-			}
-
-			.key--letter {
-				padding: 8px 4px;
-				line-height: 16px;
-				overflow: hidden;
-			}
-
-			.key--bottom-left > * {
-					position: absolute;
-					text-align: left;
-					bottom: 0.4em;
-					left: 0.4em;
-			}
-
-			.key--bottom-right > * {
-					position: absolute;
-					text-align: right;
-					bottom: 0.4em;
-					right: 0.4em;
-			}
-
-			.key--fn > * {
-					font-size: 0.6em;
-					line-height: 1em;
-					padding-top: 1.2em;
-					padding-right: 0.2em;
-					text-align: right;
-					float: right;
-			}
-
-			.key--word > * {
-					font-size: 0.8em;
-			}
-
-			.key--arrow--tall > *,
-			.key--arrow > * {
-					font-size: 0.5em;
-					line-height: 3em;
-			}
-
-			.key--arrow {
-					height: 1.8em;
-					margin-top: 1.7em;
-					line-height: 0.5em;
-			}
-
-			.key--arrow--tall > * {
-					padding-top: 0.2em;
-			}
-
-			.keyboard > .keyboard__row {
-					text-align: center;
-			}
-		</style>
-
 		<script>
 			function getKey (e) {
 					var location = e.location;
@@ -510,26 +376,26 @@
 							if (msc_<%= str %>.isPlaying()) {
 
 								// 再生中はボタンを変化させる
-								elem_<%= str %>.style.background = '#fff';
+								elem_<%= str %>.style.background = '#fff7ee';
 								elem_<%= str %>.style.color = '#333';
 
 							} else {
 
 									elem_<%= str %>.style.background = '#333';
-									elem_<%= str %>.style.color = '#fff';
+									elem_<%= str %>.style.color = '#fff7ee';
 									elem_<%= str %>.style.transition = '0.25s';
 
 							}
 						<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
 							if (ytPlayer_<%= str %>.getPlayerState() == '1') {
 
-								elem_<%= str %>.style.background = '#fff';
+								elem_<%= str %>.style.background = '#fff7ee';
 								elem_<%= str %>.style.color = '#333';
 
 							} else {
 
 								elem_<%= str %>.style.background = '#333';
-								elem_<%= str %>.style.color = '#fff';
+								elem_<%= str %>.style.color = '#fff7ee';
 								elem_<%= str %>.style.transition = '0.25s';
 
 							}
