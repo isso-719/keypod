@@ -144,13 +144,7 @@ get '/workspace/:url' do
   erb :workspace
 end
 
-get '/workspace/edit/:url' do
-  @workspace = Workspace.find_by(url: params[:url])
-
-  erb :workspace_edit
-end
-
-before '/workspace/edit/:url' do
+before '/workspace/edit/:url/:id' do
   Dotenv.load
   Cloudinary.config do |config|
     config.cloud_name = ENV["CLOUD_NAME"]
@@ -196,7 +190,7 @@ post '/workspace/edit/:url/:id' do
     description: desc
   )
 
-  redirect "/workspace/edit/#{workspace.url}"
+  redirect "/workspace/#{workspace.url}"
 
 end
 
@@ -210,5 +204,5 @@ post '/workspace/edit/delete/:url/:id' do
     description: nil
   )
 
-  redirect "/workspace/edit/#{workspace.url}"
+  redirect "/workspace/#{workspace.url}"
 end

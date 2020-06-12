@@ -28,8 +28,8 @@
 			</div>
 			<div>
 				<a href="/workspace/edit/<%= @workspace.url %>">
-					<i class="fas fa-edit"></i>
-					<h1>編集</h1>
+					<i class="fas fa-share"></i>
+					<h1>共有</h1>
 				</a>
 			</div>
 		</header>
@@ -239,6 +239,21 @@
 						<div class="modal__bg js-modal-close"></div>
 						<div class="modal__content">
 								<p><%= str %>モーダルウィンドウです。ここにモーダルウィンドウで表示したいコンテンツを入れます。モーダルウィンドウを閉じる場合は下の「閉じる」をクリックするか、背景の黒い部分をクリックしても閉じることができます。</p>
+								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post" enctype="multipart/form-data">
+									<p><%= @workspace.keys.find_by(key: str).key %></p>
+									<input type="file" name="file">
+									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<input type="submit" value="アップロード">
+								</form>
+								<br>
+								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
+									<input type="text" name="youtube" placeholder="YouTube Video URL">
+									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<input type="submit" value="YouTubeでアップロード">
+								</form>
+								<form action="/workspace/edit/delete/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
+									<input type="submit" value="登録したデータを削除">
+								</form>
 								<a class="js-modal-close" href="">閉じる</a>
 						</div>
 				</div>
@@ -419,50 +434,56 @@
 			}
 
 			function keyTyped() {
-				<% @strs.each do |str| %>
-					<% unless @workspace.keys.find_by(key: str).path == nil %>
-						<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
-							if (key === '<%= str %>') {
-								if (msc_<%= str %>.isPlaying()) {
-
-									// 再生モードによってplayかstopか選べるような機能を今後実装
-									msc_<%= str %>.play();
-
-								} else {
-									msc_<%= str %>.play();
-								}
-							}
-						<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
-							if (key === '<%= str %>') {
-								playVideo_<%= str %>();
-							}
-						<% end %>
-					<% end %>
-				<% end %>
-				if (key === ' ') {
+				if (modal_stats === 'close') {
 					<% @strs.each do |str| %>
 						<% unless @workspace.keys.find_by(key: str).path == nil %>
 							<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
-								msc_<%= str %>.stop();
+								if (key === '<%= str %>') {
+									if (msc_<%= str %>.isPlaying()) {
+
+										// 再生モードによってplayかstopか選べるような機能を今後実装
+										msc_<%= str %>.play();
+
+									} else {
+										msc_<%= str %>.play();
+									}
+								}
 							<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
-								stopVideo_<%= str %>();
+								if (key === '<%= str %>') {
+									playVideo_<%= str %>();
+								}
 							<% end %>
 						<% end %>
 					<% end %>
+					if (key === ' ') {
+						<% @strs.each do |str| %>
+							<% unless @workspace.keys.find_by(key: str).path == nil %>
+								<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
+									msc_<%= str %>.stop();
+								<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
+									stopVideo_<%= str %>();
+								<% end %>
+							<% end %>
+						<% end %>
+					}
 				}
 			}
+
+			var modal_stats = "close"
 
 			$(function(){
 					$('.js-modal-open').each(function(){
 							$(this).on('click',function(){
 									var target = $(this).data('target');
 									var modal = document.getElementById(target);
+									modal_stats = "open"
 									$(modal).fadeIn();
 									return false;
 							});
 					});
 					$('.js-modal-close').on('click',function(){
 							$('.js-modal').fadeOut();
+							modal_stats = "close"
 							return false;
 					});
 			});
