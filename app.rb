@@ -158,7 +158,7 @@ before '/workspace/edit/:url/:id' do
   Dotenv.load
   Cloudinary.config do |config|
     config.cloud_name = "isso719"
-    config.api_key = "crf1Vx1zwcf4m_dJmOe_jpOjiI8"
+    config.api_key = "786826389449828"
     config.api_secret = "crf1Vx1zwcf4m_dJmOe_jpOjiI8"
   end
 end
