@@ -9,8 +9,10 @@ Browser::Base.include(Browser::Aliases)
 
 enable :sessions
 
-def session_user
-  User.find(session[:user])
+helpers do
+  def session_user
+    User.find(session[:user])
+  end
 end
 
 def browser_check
