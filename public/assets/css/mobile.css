@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 100px 0 0 0;
+  background: #011a27;
+  color: #fff7ee;
+}
+
+p {
+  text-align: center;
+}
+
+img {
+  width: 136px;
+}
+
+h1 {
+  margin: 12px;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+h2 {
+  margin: 128px 0 0 0;
+  text-align: center;
+}
