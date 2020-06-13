@@ -125,8 +125,8 @@ header div:nth-child(2) i {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  bottom: 100%;
   width: 100%;
   padding: 64px 0 32px 0;
   background: #01111a;
