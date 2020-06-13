@@ -160,6 +160,7 @@ before '/workspace/edit/:url/:id' do
     config.cloud_name = "isso719"
     config.api_key = "786826389449828"
     config.api_secret = "crf1Vx1zwcf4m_dJmOe_jpOjiI8"
+    config.secure = true
   end
 end
 
