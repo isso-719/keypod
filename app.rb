@@ -10,7 +10,7 @@ Browser::Base.include(Browser::Aliases)
 enable :sessions
 
 helpers do
-  def session_user
+  def current_user
     User.find(session[:user])
   end
 end
@@ -38,7 +38,7 @@ get '/' do
   if session[:user].nil?
     erb :index
   else
-    @workspaces = session_user.workspaces.order(updated_at: :desc)
+    @workspaces = current_user.workspaces.order(updated_at: :desc)
     erb :index_session
   end
 end
@@ -112,7 +112,7 @@ post '/workspace/create' do
     else
       name = params[:name]
     end
-    session_user.workspaces.create(
+    current_user.workspaces.create(
       name: name,
       description: params[:description],
       url: random

@@ -14,7 +14,7 @@
   <body>
 		<header>
 			<div>
-				<% if session[:user].presence && @workspace.user_id == session_user.id %>
+				<% if session[:user].presence && @workspace.user_id == current_user.id %>
 					<a href="/">
 						<i class="fas fa-step-backward"></i>
 						<h1>戻る</h1>
@@ -239,7 +239,7 @@
 					<div id="player_<%= str %>" style="display: none;"></div>
 				<% end %>
 			<% end %>
-			<% if session[:user].presence && @workspace.user_id == session_user.id %>
+			<% if session[:user].presence && @workspace.user_id == current_user.id %>
 				<div id="modal_<%= str %>" class="modal js-modal">
 					<div class="modal__bg js-modal-close"></div>
 						<div class="modal__content">
