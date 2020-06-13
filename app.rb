@@ -115,14 +115,14 @@ post '/workspace/create' do
       description: params[:description],
       url: random
     )
-    # workspace = Workspace.last
-    # strs = ('a'..'z').to_a
-    # strs.push(*'0'..'9')
-    # strs.each do |str|
-    #   workspace.keys.create(
-    #     key: str
-    #   )
-    # end
+    workspace = Workspace.last
+    strs = ('a'..'z').to_a
+    strs.push(*'0'..'9')
+    strs.each do |str|
+      workspace.keys.create(
+        key: str
+      )
+    end
     redirect '/'
 
   else
