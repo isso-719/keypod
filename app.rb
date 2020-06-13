@@ -32,6 +32,7 @@ end
 
 get '/' do
   browser_check
+
   if session[:user].nil?
     erb :index
   else
@@ -42,6 +43,7 @@ end
 
 get '/login' do
   browser_check
+
   erb :login
 end
 
@@ -57,6 +59,8 @@ post '/login' do
 end
 
 get '/signup' do
+  browser_check
+
   erb :signup
 end
 
@@ -92,6 +96,8 @@ get '/logout' do
 end
 
 get '/workspace/create' do
+  browser_check
+
   erb :workspace_create
 end
 
@@ -136,6 +142,8 @@ post '/workspace/delete/:id' do
 end
 
 get '/workspace/:url' do
+  browser_check
+
   @workspace = Workspace.find_by(url: params[:url])
 
   @strs = ('a'..'z').to_a

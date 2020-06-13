@@ -243,13 +243,25 @@
 				<div id="modal_<%= str %>" class="modal js-modal">
 					<div class="modal__bg js-modal-close"></div>
 						<div class="modal__content">
-							<h1>"<%= @workspace.keys.find_by(key: str).key.upcase %>"キーを編集する</h1>
-							<br>
+							<div>
+								<h1>"<%= @workspace.keys.find_by(key: str).key.upcase %>"キーを編集する</h1>
+								<a class="js-modal-close" href=""><i class="fas fa-times"></i></a>
+							</div>
 							<div>
 								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post" enctype="multipart/form-data">
 									<h2>音声ファイルを追加する</h2>
 									<br>
-									<input type="file" name="file">
+									<label id="file_label_<%= str %>" class="file_label" for="file_<%= str %>">
+										<p class="file_label_in_text" style="margin: 0;">ファイルを選択する</p>
+										<input type="file" id="file_<%= str %>" name="file" onChange="fileUpload()" required>
+										<script>
+											function fileUpload() {
+												$(".file_label").css('background','#011a27');
+												$(".file_label").css('border-bottom','solid 4px #000a17');
+												$(".file_label_in_text").text('ファイルを選択済み');
+											}
+										</script>
+									</label>
 									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
 									<br>
 									<input type="submit" value="アップロード">
@@ -257,8 +269,10 @@
 								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
 									<h2>YouTube動画を追加する</h2>
 									<br>
-									<input type="text" name="youtube" placeholder="YouTube Video URL">
+									<input type="text" name="youtube" placeholder="YouTube Video URL" required>
+									<br>
 									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<br>
 									<input type="submit" value="YouTubeでアップロード">
 								</form>
 							</div>
@@ -266,17 +280,17 @@
 								<form action="/workspace/edit/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
 									<h2>説明を編集する</h2>
 									<br>
-									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明">
+									<input type="text" name="description" value="<%= @workspace.keys.find_by(key: str).description %>" placeholder="説明" required>
+									<br>
 									<input type="submit" value="説明を編集する">
 								</form>
 								<form action="/workspace/edit/delete/<%= @workspace.url %>/<%= @workspace.keys.find_by(key: str).id %>" method="post">
 									<h2>登録したデータを削除</h2>
+									<br>
 									<input type="submit" value="登録したデータを削除">
 								</form>
 							</div>
-							<br>
-							<a class="js-modal-close" href="">閉じる</a>
-						</div>
+						</>
 					</div>
 				</div>
 			<% end %>
@@ -463,7 +477,6 @@
 								if (key === '<%= str %>') {
 									if (msc_<%= str %>.isPlaying()) {
 
-										// 再生モードによってplayかstopか選べるような機能を今後実装
 										msc_<%= str %>.play();
 
 									} else {
@@ -530,5 +543,8 @@
 			});
 		</script>
 
+		<footer>
+			<small>© 2020 Keypod by Kazuki Isogai.</small>
+		</footer>
   </body>
 </html>
