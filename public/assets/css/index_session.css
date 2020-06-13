@@ -60,6 +60,7 @@ header div:nth-child(2) i {
   flex-flow: row wrap;
   justify-content: flex-start;
   padding: 32px;
+  min-height: calc(100vh - 256px);
 }
 
 .card {
