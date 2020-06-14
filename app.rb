@@ -9,10 +9,8 @@ Browser::Base.include(Browser::Aliases)
 
 enable :sessions
 
-helpers do
-  def current_user
-    User.find_by(id: session[:user])
-  end
+def current_user
+  User.find_by(id: session[:user])
 end
 
 def browser_check
@@ -23,13 +21,22 @@ def browser_check
   end
 end
 
-get '/sp' do
-  ua = request.user_agent
-  browser = Browser.new(ua)
-  unless browser.mobile?
-    redirect '/'
+def session_check(routing)
+  before "#{routing}" do
+    #セッション中でない場合indexへ
+    if session[:user].nil?
+      redirect '/'
+    end
   end
-  erb :mobile
+end
+
+def no_session_check(routing)
+  before "#{routing}" do
+    #セッション中の場合indexへ
+    if session[:user].present?
+      redirect '/'
+    end
+  end
 end
 
 get '/' do
@@ -42,6 +49,17 @@ get '/' do
     erb :index_session
   end
 end
+
+get '/sp' do
+  ua = request.user_agent
+  browser = Browser.new(ua)
+  unless browser.mobile?
+    redirect '/'
+  end
+  erb :mobile
+end
+
+no_session_check("/login")
 
 get '/login' do
   browser_check
@@ -59,6 +77,8 @@ post '/login' do
     erb :login
   end
 end
+
+no_session_check("/signup")
 
 get '/signup' do
   browser_check
@@ -96,6 +116,8 @@ get '/logout' do
   session[:user] = nil
   redirect '/'
 end
+
+session_check("/workspace/create")
 
 get '/workspace/create' do
   browser_check
