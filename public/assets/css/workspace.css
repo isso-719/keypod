@@ -314,7 +314,7 @@ small {
 
 .modal__content div form {
   width: calc(50% - 64px);
-  min-height: 124px;
+  height: 204px;
   padding: 12px 24px;
   border: solid 2px #fff;
   border-radius: 8px;
