@@ -48,6 +48,10 @@ header div i {
   color: #fff7ee;
 }
 
+.name {
+  color: #fff7ee;
+}
+
 #p5_loading {
   position: absolute;
   z-index: 10;

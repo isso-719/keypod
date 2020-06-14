@@ -27,6 +27,9 @@
 				<% end %>
 			</div>
 			<div>
+				<h1 class="name"><%= @workspace.name %> - <%= User.find(@workspace.user_id).name %></h1>
+			</div>
+			<div>
 				<a class="share">
 					<textarea id="js-copytext">https://keypod.net/workspace/<%= @workspace.url %></textarea>
 					<i class="fas fa-share"></i>
