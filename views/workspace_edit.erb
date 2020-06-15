@@ -4,28 +4,38 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= @workspace.name %>を編集する - Keypod</title>
+	<link rel="stylesheet" href="/assets/css/workspace_create.css">
 	<link rel="shortcut icon" href="/assets/images/favicon.ico">
 </head>
 <body>
 
-	<% @workspace.keys.each do |key| %>
-		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post" enctype="multipart/form-data">
-			<p><%= key.key %></p>
-			<input type="file" name="file">
-			<input type="text" name="description" value="<%= key.description %>" placeholder="説明">
-			<input type="submit" value="アップロード">
-		</form>
-		<br>
-		<form action="/workspace/edit/<%= @workspace.url %>/<%= key.id %>" method="post">
-			<input type="text" name="youtube" placeholder="YouTube Video URL">
-			<input type="text" name="description" value="<%= key.description %>" placeholder="説明">
-			<input type="submit" value="YouTubeでアップロード">
-		</form>
-		<form action="/workspace/edit/delete/<%= @workspace.url %>/<%= key.id %>" method="post">
-			<input type="submit" value="登録したデータを削除">
-		</form>
-	<% end %>
+	<div class="form">
 
+		<div class="logo">
+			<a href="/"><img src="/assets/images/logo_accent.svg" alt="logo"></a>
+			<h1><%= @workspace.name %>を編集する</h1>
+		</div>
+
+		<form action="/workspace/meta/edit/<%= @workspace.id %>" method="post">
+			<div class="text-input">
+				<label for="name">ワークスペース名</label>
+				<input type="text" name="name" value="<%= @workspace.name %>" placeholder="名称未設定" />
+				<span class="separator"> </span>
+			</div>
+
+			<div class="text-input">
+				<label for="description">説明</label>
+				<textarea name="description" placeholder="最高のセッションをするためのワークスペースです!"><%= @workspace.description %></textarea>
+				<span class="separator"> </span>
+			</div>
+
+			<div class="form-bottom">
+				<input type="submit" id="submit" value="Create"  />
+				<a href="/">戻る</a>
+			</div>
+
+		</form>
+	</div>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-84261059-12"></script>

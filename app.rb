@@ -239,3 +239,18 @@ post '/workspace/edit/delete/:url/:id' do
 
   redirect "/workspace/#{workspace.url}"
 end
+
+get '/workspace/meta/edit/:id' do
+  @workspace = Workspace.find(params[:id])
+
+  erb :workspace_edit
+end
+
+post '/workspace/meta/edit/:id' do
+  workspace = Workspace.find(params[:id])
+  workspace.update(
+    name: params[:name],
+    description: params[:description]
+  )
+  redirect '/'
+end
