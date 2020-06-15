@@ -54,8 +54,8 @@
   border-bottom: 1px solid #999;
 }
 
-.form form input[type="text"]:focus + .separator,
-.form form input[type="password"]:focus + .separator {
+.form form input[type="text"]:focus+.separator,
+.form form input[type="password"]:focus+.separator {
   transform: scaleX(1) translateY(-2px);
   opacity: 1;
 }
@@ -100,6 +100,18 @@ body {
   justify-content: center;
   align-items: center;
   background: #011a27;
+  font-family: -apple-system,
+    "Roboto",
+    "Helvetica Neue",
+    "Droid Sans",
+    "ヒラギノ角ゴ ProN",
+    "Hiragino Kaku Gothic ProN",
+    "Meiryo",
+    "メイリオ",
+    "Osaka",
+    "MS PGothic",
+    arial,
+    sans-serif;
 }
 
 body a {

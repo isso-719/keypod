@@ -3,6 +3,18 @@ body {
   padding: 100px 0 0 0;
   background: #011a27;
   color: #fff7ee;
+  font-family: -apple-system,
+    "Roboto",
+    "Helvetica Neue",
+    "Droid Sans",
+    "ヒラギノ角ゴ ProN",
+    "Hiragino Kaku Gothic ProN",
+    "Meiryo",
+    "メイリオ",
+    "Osaka",
+    "MS PGothic",
+    arial,
+    sans-serif;
 }
 
 p {
