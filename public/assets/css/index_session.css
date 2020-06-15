@@ -116,6 +116,7 @@ header div:nth-child(2) i {
   color: #fff7ee;
   border-bottom: solid 4px #c76a0e;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .btn-square:active {
