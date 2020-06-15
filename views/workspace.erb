@@ -455,17 +455,19 @@
 
 							}
 						<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
-							if (ytPlayer_<%= str %>.getPlayerState() == '1') {
+							if (typeof ytPlayer_<%= str %>.getPlayerState === "function") {
+								if (ytPlayer_<%= str %>.getPlayerState() == '1') {
 
-								elem_<%= str %>.style.background = '#fff7ee';
-								elem_<%= str %>.style.color = '#333';
+									elem_<%= str %>.style.background = '#fff7ee';
+									elem_<%= str %>.style.color = '#333';
 
-							} else {
+								} else {
 
-								elem_<%= str %>.style.background = '#333';
-								elem_<%= str %>.style.color = '#fff7ee';
-								elem_<%= str %>.style.transition = '0.25s';
+									elem_<%= str %>.style.background = '#333';
+									elem_<%= str %>.style.color = '#fff7ee';
+									elem_<%= str %>.style.transition = '0.25s';
 
+								}
 							}
 						<% end %>
 					<% end %>
