@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates :mail,
     presence: true,
     uniqueness: true,
-    format: { with: /\A([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+\z/ }
+    format: { with: /\A([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])*\.([a-zA-Z0-9\._-]+)+\z/ }
   validates :password_digest,
     presence: true,
     length: { minimum: 7 }
