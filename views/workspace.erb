@@ -419,7 +419,7 @@
 				if (window.location.protocol == "http:") pro = "ws:";
 				var url = pro + "//" + window.location.host + "/websocket/<%= @workspace.id %>";
 				// var count = new WebSocket('ws://' + window.location.host + "/websocket/<%= @workspace.id %>");
-				var ws = new WebSocket(url);
+				var count = new WebSocket(url);
 
 				// 接続が始まった時
 				count.onopen = function() { console.log("接続") };
