@@ -7,7 +7,14 @@ require 'browser/browser'
 require 'browser/aliases'
 Browser::Base.include(Browser::Aliases)
 
+require 'sinatra-websocket'
+require 'json'
+
+
 enable :sessions
+
+set :server, 'thin'
+set :sockets, {}
 
 def current_user
   User.find_by(id: session[:user])
@@ -253,4 +260,28 @@ post '/workspace/meta/edit/:id' do
     description: params[:description]
   )
   redirect '/'
+end
+
+get '/websocket/:id' do |path|
+  if request.websocket? then
+    request.websocket do |ws|
+      ws.onopen do # 接続を開始した時
+        settings.sockets[path] ||= []
+        settings.sockets[path] << ws # socketsリストに追加
+        puts settings.sockets[path]
+      end
+      ws.onmessage do |msg| # メッセージを受け取った時
+        puts 'メッセージを受け取ったよ！'
+        data = JSON.parse(msg)
+        puts data
+        workspace = Workspace.find(path)
+        settings.sockets[path].each do |s| # メッセージを転送
+          s.send(data.to_json.to_s)
+        end
+      end
+      ws.onclose do # メッセージを終了する時
+        settings.sockets.delete(ws)
+      end
+    end
+  end
 end

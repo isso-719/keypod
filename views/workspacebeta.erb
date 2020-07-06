@@ -418,52 +418,26 @@
 				var count = new WebSocket('ws://' + window.location.host + "/websocket/<%= @workspace.id %>");
 
 				// 接続が始まった時
-				count.onopen = function() { console.log("接続") };
+				count.onopen = function() {console.log("接続") };
 				// 接続が終わった時
 				count.onclose = function() { };
 				// メッセージを受け取った時
 				count.onmessage = function(m) {
 					data = JSON.parse(m.data)
-						console.log(data['key'])
-					<% @strs.each do |str| %>
-						<% unless @workspace.keys.find_by(key: str).path == nil %>
-							<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
-								if (data['key'] === '<%= str %>') {
-									if (msc_<%= str %>.isPlaying()) {
-
-										msc_<%= str %>.play();
-
-									} else {
-										msc_<%= str %>.play();
-									}
-								}
-							<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
-								if (data['key'] === '<%= str %>') {
-									playVideo_<%= str %>();
-								}
-							<% end %>
-						<% end %>
-					<% end %>
-
-					if (data['key'] === " ") {
-						<% @strs.each do |str| %>
-							<% unless @workspace.keys.find_by(key: str).path == nil %>
-								<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
-									msc_<%= str %>.stop();
-								<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
-									stopVideo_<%= str %>();
-								<% end %>
-							<% end %>
-						<% end %>
+					if(data.type == 'key'){
+						console.log(data)
+					} else {
+						console.log(data)
 					}
 				}
 
 				// ボタンが押されたら
 				s = function(msg){
 					console.log(msg)
-					count.send(JSON.stringify({key: msg}));
+					count.send(JSON.stringify({type:'', key: msg['key']}));
 				}
 			};
+
 
 			<% @strs.each do |str| %>
 				<% unless @workspace.keys.find_by(key: str).path == nil %>
@@ -531,25 +505,25 @@
 						<% unless @workspace.keys.find_by(key: str).path == nil %>
 							<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
 								if (key === '<%= str %>') {
-									s('<%= str %>');
-									// if (msc_<%= str %>.isPlaying()) {
+									if (msc_<%= str %>.isPlaying()) {
 
-										// msc_<%= str %>.play();
+										msc_<%= str %>.play();
 
-									// } else {
-										// msc_<%= str %>.play();
-									// }
+									} else {
+										msc_<%= str %>.play();
+									}
 								}
+								s(JSON.stringify({type:'key', key: '<%= str %>'}));
 							<% elsif @workspace.keys.find_by(key: str).data_type == "youtube" %>
 								if (key === '<%= str %>') {
-									s('<%= str %>');
-									// playVideo_<%= str %>();
+									playVideo_<%= str %>();
 								}
+								s(JSON.stringify({type:'key', key: '<%= str %>'}));
 							<% end %>
 						<% end %>
 					<% end %>
 					if (key === ' ') {
-						s(" ");
+						s(JSON.stringify({type:'key', key: ' '}));
 						<% @strs.each do |str| %>
 							<% unless @workspace.keys.find_by(key: str).path == nil %>
 								<% if @workspace.keys.find_by(key: str).data_type == "cloudinary" %>
@@ -615,5 +589,40 @@
 
 			gtag('config', 'UA-84261059-12');
 		</script>
+
+
+
+
+		<script>
+			// window.onload = function(){
+			// 	var count = new WebSocket('ws://' + window.location.host + "/websocket/<%= @workspace.id %>");
+
+			// 	// 接続が始まった時
+			// 	count.onopen = function() {console.log("接続") };
+			// 	// 接続が終わった時
+			// 	count.onclose = function() { };
+			// 	// メッセージを受け取った時
+			// 	count.onmessage = function(m) {
+			// 		data = JSON.parse(m.data)
+			// 		if(data.type == 'key'){
+
+			// 		} else {
+			// 			console.log(data)
+			// 		}
+			// 	}
+
+			// 	// ボタンが押されたら
+			// 	function sendKey(sKey){
+			// 		s = (msg) => {
+			// 				count.send(JSON.stringify({type:'key', key: sKey}));
+			// 		}
+			// 	}
+			// };
+		</script>
+
+
+
+
+
   </body>
 </html>

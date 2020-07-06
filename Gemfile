@@ -11,6 +11,7 @@ gem 'cloudinary'
 gem 'dotenv'
 gem 'pry'
 gem 'browser'
+gem 'sinatra-websocket'
 
 group :development do
   gem 'sqlite3', '~>1.4.1'
