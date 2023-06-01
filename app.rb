@@ -10,6 +10,9 @@ Browser::Base.include(Browser::Aliases)
 require 'sinatra-websocket'
 require 'json'
 
+require 'dotenv'
+Dotenv.load
+
 
 enable :sessions
 
@@ -186,9 +189,9 @@ end
 before '/workspace/edit/:url/:id' do
   Dotenv.load
   Cloudinary.config do |config|
-    config.cloud_name = "isso719"
-    config.api_key = "786826389449828"
-    config.api_secret = "crf1Vx1zwcf4m_dJmOe_jpOjiI8"
+    config.cloud_name = env['CLOUDINARY_CLOUD_NAME']
+    config.api_key = env['CLOUDINARY_API_KEY']
+    config.api_secret = env['CLOUDINARY_API_SECRET']
     config.secure = true
   end
 end
